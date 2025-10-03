@@ -1,26 +1,25 @@
 
-async function fetchJSON(url) {
-  const response = await fetch(url);
-  if (!response.ok) throw new Error(`Error fetching ${url}`);
+async function fetching(url) {
+  const response = await fetch(url);g
   return await response.json();
 }
-fetchJSON("https://jsonplaceholder.typicode.com/posts?_embed=comments&_expand=user")
+// calling the function
+fetching("https://jsonplaceholder.typicode.com/posts?_embed=comments&_expand=user")
   .then(data => console.log(data))
   .catch(error => console.error(error));
 
 
 async function mergeAuthorAndComments() {
   try {
-    // 1. Fetch all authors
-    const authors = await fetchJSON("https://api.example.com/authors");
+    
 
-    // 2. For each author → fetch comments for their articles
+    //  fetch comments for their articles
     const authorsWithArticles = await Promise.all(
       authors.map(async (author) => {
         // For each articleId, fetch comments
         const articles = await Promise.all(
           author.articleIds.map(async (articleId) => {
-            const comments = await fetchJSON(
+            const comments = await fetching(
               `https://api.example.com/articles/${articleId}/comments`
             );
             return {
